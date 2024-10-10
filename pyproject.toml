@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "clogged"
+version = "0.1.0"
+description = ""
+authors = ["Max Smagin <lazlogogalac777@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.0"
+uvicorn = "^0.31.1"
+
+[tool.poetry.scripts]
+start = "clogged.main:start"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

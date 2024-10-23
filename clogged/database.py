@@ -1,10 +1,10 @@
-from clogged.config import DATABASE_DSN
+from clogged.config import settings as app_settings
 from clogged.blog.models import Base as BaseModel
 from sqlalchemy.ext.asyncio import create_async_engine
 
 
 async_engine = create_async_engine(
-    DATABASE_DSN, 
+    app_settings.DATABASE_DSN.unicode_string(), 
     echo=True
 )
 

@@ -1,9 +1,9 @@
 from typing import Annotated
 from clogged.redis import get_redis
 from clogged.dependencies import get_db
-from clogged.config import SESSION_EXPIRES_IN_SECONDS
 from clogged.poster.schemas import PosterModel
 from clogged.poster.service import get_poster
+from clogged.auth.config import settings as auth_settings
 from clogged.auth.service import (
     authenticate_user, 
     create_session, 
@@ -40,7 +40,7 @@ async def login(
     response.set_cookie(
         "session_id", 
         session_id,
-        max_age=SESSION_EXPIRES_IN_SECONDS,
+        max_age=auth_settings.SESSION_EXPIRES_IN_SECONDS,
         secure=True, 
         httponly=True 
     )

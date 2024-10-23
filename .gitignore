@@ -177,3 +177,6 @@ pyrightconfig.json
 
 # Ignore .vscode
 .vscode/
+
+# Ignore redis dump file
+dump.rdb

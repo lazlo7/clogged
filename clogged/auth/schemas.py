@@ -1,5 +1,5 @@
-from pydantic import BaseModel, StringConstraints, NonNegativeInt
-from typing_extensions import Annotated
+from typing import Annotated
+from pydantic import StringConstraints, BaseModel, NonNegativeInt
 
 
 UsernameType = Annotated[
@@ -10,20 +10,15 @@ UsernameType = Annotated[
 PlaintextPasswordType = Annotated[
     str,
     StringConstraints(strip_whitespace=True, min_length=6, max_length=32, pattern=r'^[a-zA-Z0-9\-_@$!%*#?&]+$')
-] 
-
-PosterIdType = NonNegativeInt
+]
 
 
-class PosterRegistrationModel(BaseModel):
+class PosterAuthModel(BaseModel):
     username: UsernameType
     password: PlaintextPasswordType
 
 
-class PosterRegistrationResponseModel(BaseModel):
-    poster_id: PosterIdType
-
-
-class PosterModel(BaseModel):
-    id: PosterIdType
+class PosterLogoutResponseModel(BaseModel):
+    id: NonNegativeInt
     username: UsernameType
+    sessions_revoked_n: NonNegativeInt

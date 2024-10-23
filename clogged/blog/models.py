@@ -1,19 +1,7 @@
-from sqlalchemy import Integer, VARCHAR, TEXT, ForeignKey, TIMESTAMP
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from clogged.models import Base
+from sqlalchemy import Integer, TEXT, ForeignKey, TIMESTAMP
+from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.sql import func
-
-
-class Base(DeclarativeBase):
-    pass
-
-
-class Poster(Base):
-    __tablename__ = "posters"
-
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, unique=True, autoincrement=True)
-    username: Mapped[str] = mapped_column(VARCHAR(16), unique=True)
-    # A hashed and salted password using argon2. 
-    credentials: Mapped[str] = mapped_column(TEXT)
 
 
 class Post(Base):

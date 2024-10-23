@@ -1,34 +1,29 @@
 from clogged.database import init_db
-from clogged.config import DATABASE_DSN
 from clogged.admin.routes import router as admin_router
+from clogged.auth.routes import router as auth_router
+from clogged.poster.routes import router as poster_router 
 from contextlib import asynccontextmanager
-from asyncpg import create_pool
 from fastapi import FastAPI
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
-    try:
-        app.state.postgres_pool = await create_pool(
-            dsn=DATABASE_DSN,
-            min_size=4,
-            max_size=16
-        )
-        await init_db()
-        yield
-    finally:
-        await app.state.postgres_pool.close()
+async def lifespan(_: FastAPI):        
+    await init_db()
+    yield
 
 
 app = FastAPI(
-    title = "Clogged API",
-    description = "API for \"clogged\" - a simple blogging service.",
-    version = "1.0.0",
+    title="Clogged API",
+    description="API for \"clogged\" - a simple blogging service.",
+    version="1.0.0",
+    root_path="/api/v1",
     lifespan=lifespan
 )
 
 
 app.include_router(admin_router)
+app.include_router(auth_router)
+app.include_router(poster_router)
 
 
 @app.get("/")

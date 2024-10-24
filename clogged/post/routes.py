@@ -1,4 +1,4 @@
-from clogged.blog.schemas import PostModel 
+from clogged.post.schemas import PostModel 
 from fastapi import APIRouter
 
 

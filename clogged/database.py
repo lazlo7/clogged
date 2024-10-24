@@ -1,5 +1,5 @@
 from clogged.config import settings as app_settings
-from clogged.blog.models import Base as BaseModel
+from clogged.post.models import Base as BaseModel
 from sqlalchemy.ext.asyncio import create_async_engine
 
 

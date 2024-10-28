@@ -1,3 +1,4 @@
+from clogged.config import settings as app_settings
 from clogged.database import init_db
 from clogged.admin.routes import router as admin_router
 from clogged.auth.routes import router as auth_router
@@ -18,6 +19,10 @@ app = FastAPI(
     description="API for \"clogged\" - a simple blogging service.",
     version="1.0.0",
     root_path="/api/v1",
+    # Always disable Swagger docs, favor Redoc.
+    docs_url=None, 
+    # Enable Redoc docs only if it's development environment. 
+    redoc_url="/docs" if app_settings.CLOGGED_IS_DEVELOPMENT else None, 
     lifespan=lifespan
 )
 

@@ -2,16 +2,22 @@
 
 A simple blog API built with FastAPI
 
+- Featuring support for many posters, tagged posts and many more
 - Register posters via admin endpoints 
 - Postgres database for storing persistent app data
-- Session authentication via Redis
+- Session-based authentication via Redis
+- Easily configurable via pydantic-settings
+- OpenAPI scheme generation and Rapidoc for easy API deocumentation and expirementing
 - docker(-compose) support for easy deployment
 
 ## Configuration
 
 Environment variables used to configure the app:
-- `APP_API_PORT`: port for the app to listen on
-- `ADMIN_API_KEY`: API key for the admin endpoints
+- `CLOGGED_API_PORT`: port for the app to listen on
+- `CLOGGED_IS_DEVELOPMENT`: whether to run the app in development mode, defaults to `0`
+- `CLOGGED_ENABLE_API_DOCS`: whether to enable OpenAPI documentation generation  
+  and two endpoints \- `/openapi.json` and `/docs` for serving Rapidocs UI, defaults to `1` if in development mode 
+- `CLOGGED_ADMIN_API_KEY`: API key for the admin endpoints
 - `POSTGRES_HOST`: host address of the Postgres database
 - `POSTGRES_PORT`: port of the Postgres database
 - `POSTGRES_USER`: user of the Postgres database
@@ -41,3 +47,8 @@ The used app container port will be 8000.
 ### poetry
 Configure Postgres and Redis variables to match your local setup.  
 Initialize poetry with `poetry install` and run the app with `poetry run start`.
+
+## Documentation and Experimenting
+
+Set `CLOGGED_ENABLE_API_DOCS` or `CLOGGED_IS_DEVELOPMENT` to `1` to enable OpenAPI scheme generation and documentation endpoint.  
+You can then browse and experiment with the API at `/docs` via Rapidoc UI. 

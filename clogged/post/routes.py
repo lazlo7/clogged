@@ -1,4 +1,5 @@
 from clogged.dependencies import get_db
+from clogged.schemas import IdType
 from clogged.post.dependencies import verify_poster_authorship
 from clogged.post import service as post_service
 from clogged.post.schemas import (
@@ -26,7 +27,7 @@ router = APIRouter(
     status_code=200
 )
 async def get_post(
-    post_id: int,
+    post_id: IdType,
     db: AsyncSession = Depends(get_db)
 ):
     post = await post_service.get_post(post_id, db)

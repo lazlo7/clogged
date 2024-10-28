@@ -1,8 +1,9 @@
+from clogged.dependencies import get_db
+from clogged.schemas import IdType
+from clogged.poster.service import get_poster, get_posters
+from clogged.poster.schemas import PosterModel
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from clogged.dependencies import get_db
-from clogged.poster.schemas import PosterModel
-from clogged.poster.service import get_poster, get_posters
 
 
 router = APIRouter(
@@ -28,7 +29,7 @@ async def get_all_posters(db: AsyncSession = Depends(get_db)):
     status_code=200
 )
 async def get_poster_info(
-    poster_id: int,
+    poster_id: IdType,
     db: AsyncSession = Depends(get_db)
 ):
     poster = await get_poster(poster_id, db)

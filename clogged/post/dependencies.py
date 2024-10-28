@@ -1,4 +1,5 @@
 from clogged.dependencies import get_db
+from clogged.schemas import IdType
 from clogged.post.service import get_post
 from clogged.auth.dependencies import verify_user_auth
 from fastapi import Depends, HTTPException
@@ -6,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 
 async def verify_poster_authorship(
-    post_id: int,
+    post_id: IdType,
     db: AsyncSession = Depends(get_db),
     poster_id: int = Depends(verify_user_auth),
 ) -> int:

@@ -1,5 +1,6 @@
 from clogged.dependencies import get_db
 from clogged.redis import get_redis
+from clogged.schemas import IdType
 from clogged.admin.dependencies import verify_admin_key
 from clogged.admin.service import add_poster, remove_poster, update_poster_info
 from clogged.auth.schemas import PosterAuthModel
@@ -40,7 +41,7 @@ async def create_poster(
     status_code=200
 )
 async def delete_poster(
-    poster_id: int,
+    poster_id: IdType,
     db: AsyncSession = Depends(get_db),
     cache: Redis = Depends(get_redis)
 ):
@@ -55,7 +56,7 @@ async def delete_poster(
     status_code=200
 )
 async def update_poster(
-    poster_id: int,
+    poster_id: IdType,
     new_poster_data: PosterAuthModel,
     db: AsyncSession = Depends(get_db),
     cache: Redis = Depends(get_redis)

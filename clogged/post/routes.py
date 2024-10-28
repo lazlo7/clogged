@@ -16,7 +16,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 
 router = APIRouter(
-    prefix="/post"
+    prefix="/post",
+    tags=["post"]
 )
 
 
@@ -125,6 +126,7 @@ async def delete_post(
 @router.get(
     "/tags/",
     description="Returns all tags",
+    tags=["tag"],
     response_model=list[TagModel],
     status_code=200
 )
@@ -138,6 +140,7 @@ async def get_tags(
 @router.post(
     "/tag/{tag}",
     description="Creates a new tag",
+    tags=["tag"],
     response_model=TagModel,
     dependencies=[
         Depends(verify_user_auth)
@@ -157,6 +160,7 @@ async def create_tag(
 @router.delete(
     "/tag/{tag}",
     description="Deletes a tag",
+    tags=["tag"],
     response_model=TagModel,
     dependencies=[
         Depends(verify_user_auth)

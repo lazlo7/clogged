@@ -17,7 +17,10 @@ from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
-router = APIRouter(prefix="/auth")
+router = APIRouter(
+    prefix="/auth",
+    tags=["auth"]
+)
 
 
 @router.post(

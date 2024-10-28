@@ -13,6 +13,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 """Private admin-only poster API: create, read, update and delete full poster info."""
 router = APIRouter(
     prefix="/admin", 
+    tags=["admin"],
     dependencies=[
         Depends(verify_admin_key)
     ]

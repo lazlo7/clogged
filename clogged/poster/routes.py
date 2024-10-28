@@ -7,7 +7,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 
 router = APIRouter(
-    prefix="/poster"
+    prefix="/poster",
+    tags=["poster"]
 )
 
 

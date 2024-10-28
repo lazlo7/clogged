@@ -31,7 +31,7 @@ async def invalidate_all_user_sessions(user_id: int, redis_client: Redis) -> int
 async def create_session(user_id: int, redis_client: Redis) -> str:
     """Creates a new session for the given user id and returns the session id."""
     session_id = await generate_session_id()
-    await redis_client.set(session_id, user_id, ex=auth_settings.SESSION_EXPIRES_IN_SECONDS)
+    await redis_client.set(session_id, user_id, ex=auth_settings.CLOGGED_SESSION_EXPIRES_IN_SECONDS)
     return session_id
 
 

@@ -43,7 +43,7 @@ async def login(
     response.set_cookie(
         "session_id", 
         session_id,
-        max_age=auth_settings.SESSION_EXPIRES_IN_SECONDS,
+        max_age=auth_settings.CLOGGED_SESSION_EXPIRES_IN_SECONDS,
         secure=True, 
         httponly=True 
     )

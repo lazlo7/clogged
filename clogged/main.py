@@ -1,6 +1,7 @@
 from clogged.database import init_db
 from clogged.admin.routes import router as admin_router
 from clogged.auth.routes import router as auth_router
+from clogged.post.routes import router as post_router
 from clogged.poster.routes import router as poster_router 
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
@@ -23,6 +24,7 @@ app = FastAPI(
 
 app.include_router(admin_router)
 app.include_router(auth_router)
+app.include_router(post_router)
 app.include_router(poster_router)
 
 

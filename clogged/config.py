@@ -6,7 +6,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Config(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
-    APP_API_PORT: int = 8000
+    CLOGGED_API_PORT: int = 8000
     CLOGGED_IS_DEVELOPMENT: bool = False
 
     POSTGRES_HOST: str = "localhost"

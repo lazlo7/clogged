@@ -14,6 +14,7 @@ asyncpg = "^0.30.0"
 sqlalchemy = {extras = ["asyncio"], version = "^2.0.36"}
 redis = "^5.1.1"
 pydantic-settings = "^2.6.0"
+nh3 = "^0.2.18"
 
 [tool.poetry.scripts]
 start = "clogged.start:start"

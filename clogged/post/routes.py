@@ -1,6 +1,6 @@
 from clogged.dependencies import get_db
 from clogged.schemas import IdType
-from clogged.post.dependencies import verify_poster_authorship
+from clogged.post.dependencies import sanitize_post_input_data, verify_poster_authorship
 from clogged.post import service as post_service
 from clogged.post.schemas import (
     PostCreationModel, 
@@ -63,7 +63,7 @@ async def get_posts(
     status_code=201
 )
 async def create_post(
-    post_data: PostCreationModel,
+    post_data: PostCreationModel = Depends(sanitize_post_input_data),
     poster_id: int = Depends(verify_user_auth),
     db: AsyncSession = Depends(get_db)
 ):
@@ -85,7 +85,7 @@ async def create_post(
     status_code=200
 )
 async def update_post(
-    post_data: PostCreationModel,
+    post_data: PostCreationModel = Depends(sanitize_post_input_data),
     verified_post_id: int = Depends(verify_poster_authorship),
     db: AsyncSession = Depends(get_db)
 ):

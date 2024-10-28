@@ -45,7 +45,12 @@ async def login(
         session_id,
         max_age=auth_settings.CLOGGED_SESSION_EXPIRES_IN_SECONDS,
         secure=True, 
-        httponly=True 
+        httponly=True,
+        # Set a strict same-site cookie policy to prevent basic CSRF attacks.
+        # TODO: Introduce CSRF tokens to completely eliminate CSRF attacks.
+        #   The current method still allows for CSRF to be perfomed within the same site,
+        #   even though we properly sanitize all user-controlled data to prevent XSS to be used for CSRF.
+        samesite="strict"
     )
     return poster
 

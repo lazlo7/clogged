@@ -1,4 +1,4 @@
-from pydantic import computed_field, PostgresDsn, RedisDsn
+from pydantic import Field, computed_field, PostgresDsn, RedisDsn
 from pydantic_core import MultiHostUrl, Url
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -8,6 +8,13 @@ class Config(BaseSettings):
 
     CLOGGED_API_PORT: int = 8000
     CLOGGED_IS_DEVELOPMENT: bool = False
+    
+    """Backing field, use `CLOGGED_ENABLE_API_DOCS` property instead."""
+    clogged_enable_api_docs: bool = Field(default=False, alias="CLOGGED_ENABLE_API_DOCS")
+    @property
+    def CLOGGED_ENABLE_API_DOCS(self) -> bool:
+        # Default to development mode if not specified.
+        return self.CLOGGED_IS_DEVELOPMENT or self.clogged_enable_api_docs
 
     POSTGRES_HOST: str = "localhost"
     POSTGRES_PORT: int = 5432

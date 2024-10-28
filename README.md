@@ -5,7 +5,7 @@ A simple blog API built with FastAPI
 - Featuring support for many posters, tagged posts and many more
 - Register posters via admin endpoints 
 - Postgres database for storing persistent app data
-- Session-based authentication via Redis
+- Session-based authentication via Redis and XSS post validation
 - Easily configurable via pydantic-settings
 - OpenAPI scheme generation and Rapidoc for easy API deocumentation and expirementing
 - docker(-compose) support for easy deployment

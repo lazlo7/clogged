@@ -4,9 +4,10 @@ from clogged.schemas import IdType
 from clogged.admin.dependencies import verify_admin_key
 from clogged.admin.service import add_poster, remove_poster, update_poster_info
 from clogged.auth.schemas import PosterAuthModel
+from clogged.auth.utils import invalidate_session_cookie
 from clogged.poster.schemas import PosterModel
 from redis.asyncio import Redis
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
@@ -43,10 +44,12 @@ async def create_poster(
 )
 async def delete_poster(
     poster_id: IdType,
+    response: Response,
     db: AsyncSession = Depends(get_db),
     cache: Redis = Depends(get_redis)
 ):
     poster = await remove_poster(poster_id, db, cache)
+    await invalidate_session_cookie(response)
     return poster
 
 
@@ -59,8 +62,10 @@ async def delete_poster(
 async def update_poster(
     poster_id: IdType,
     new_poster_data: PosterAuthModel,
+    response: Response,
     db: AsyncSession = Depends(get_db),
     cache: Redis = Depends(get_redis)
 ):
     poster = await update_poster_info(poster_id, new_poster_data.username, new_poster_data.password, db, cache)
+    await invalidate_session_cookie(response)
     return poster

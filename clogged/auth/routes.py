@@ -1,4 +1,5 @@
 from typing import Annotated
+from clogged.auth.utils import invalidate_session_cookie
 from clogged.redis import get_redis
 from clogged.dependencies import get_db
 from clogged.poster.schemas import PosterModel
@@ -62,6 +63,7 @@ async def login(
     status_code=200
 )
 async def logout(
+    response: Response,
     everywhere: bool = False,
     user_id: int = Depends(verify_user_auth),
     session_id: Annotated[str | None, Cookie()] = None,
@@ -75,6 +77,8 @@ async def logout(
     sessions_revoked_n = await invalidate_all_user_sessions(user_id, cache) if everywhere \
                          else int(await invalidate_session(session_id, cache))
     
+    await invalidate_session_cookie(response)
+
     poster = await get_poster(user_id, db)
     if poster is None:
         # Should not ever happen since poster is guaranteed to exist by the verify_user_auth dependency.

@@ -16,6 +16,14 @@ class Config(BaseSettings):
         # Default to development mode if not specified.
         return self.CLOGGED_IS_DEVELOPMENT or self.clogged_enable_api_docs
 
+    """Backing field, use `CLOGGED_CORS_ALLOW_ORIGINS` property instead."""
+    clogged_cors_allowed_origins: str = Field(default="http://localhost", alias="CLOGGED_CORS_ALLOWED_ORIGINS")
+    @property
+    def CLOGGED_CORS_ALLOWED_ORIGINS(self) -> list[str]:
+        # TODO: Add validation for the origins.
+        return self.clogged_cors_allowed_origins.split(",")
+    
+
     POSTGRES_HOST: str = "localhost"
     POSTGRES_PORT: int = 5432
     POSTGRES_USER: str = "clogged"

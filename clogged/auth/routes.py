@@ -24,6 +24,20 @@ router = APIRouter(
 )
 
 
+@router.get(
+    "/check",
+    description="Checks whether the user is authenticated by provided session_id and returns the user's info on success",
+    response_model=PosterModel,
+    status_code=200
+)
+async def is_authenticated(
+    user_id: int = Depends(verify_user_auth),
+    db: AsyncSession = Depends(get_db)
+):
+    # get_poster() is assumed to never return None since the user must exist at this point by verify_user_auth. 
+    return await get_poster(user_id, db)
+
+
 @router.post(
     "/login",
     description="Authenticates user by the given username and password and returns the user's id",

@@ -7,6 +7,7 @@ from clogged.poster.routes import router as poster_router
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 
 @asynccontextmanager
@@ -27,6 +28,16 @@ app = FastAPI(
     # since we may want to hide API docs in production.
     openapi_url="/openapi.json" if app_settings.CLOGGED_ENABLE_API_DOCS else None, 
     lifespan=lifespan
+)
+
+
+# CORS for frontend hosted on different domain.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=app_settings.CLOGGED_CORS_ALLOWED_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
 )
 
 
